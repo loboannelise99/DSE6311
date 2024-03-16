@@ -1,0 +1,17 @@
+---
+title: "Determinants of Happiness Across the Globe"
+output: pdf_document
+date: "2024-03-16"
+---
+
+Proposed Working Title: Determinants of Happiness Across the Globe
+
+Research Question: What factors contribute to the quality of life as a determinant of happiness in various countries?
+
+Brief Background:
+The  This question fills the need to incorporate better determinants for a happier life. It provides awareness of which factors influence the quality of life, which is correlated to happiness. This information could be used preventatively. If living in a country with high stress factors negatively influencing quality of life - need to improve factors so a high quality of life is recognized globally. This question is important to support everyone's background. Quality of life measures are important statistics to ensure a healthy and prosperous society. Global happiness is a topic that could help a multitude of overarching themes. Some of the happiest countries have some of the highest global peace ratings (https://www.bbntimes.com/society/happiest-and-safest-countries-in-the-world).
+
+Hypothesis: Happiness is affected by quality of life in developing nations
+because of higher disease rates and lower GDP.
+
+Prediction: People in developing nations would have lower happiness levels due to a lower quality of life. People in developed nations have a higher quality of life because of less diseases and more access to resources.
