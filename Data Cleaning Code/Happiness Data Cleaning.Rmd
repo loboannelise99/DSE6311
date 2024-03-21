@@ -1,0 +1,93 @@
+---
+title: "Happiness Data Cleaning"
+output: pdf_document
+date: "2024-03-21"
+---
+
+Load in necessary libraries 
+```{r}
+library(dplyr)
+library(readxl)
+```
+
+Read in the happiness data for all data sets
+```{r}
+happiness_2018 = read_excel("happiness_2018.xls")
+happiness_2019 = read_excel("happiness_2019.xls")
+happiness_2020 = read_excel("happiness_2020.xls")
+happiness_2021 = read_excel("happiness_2021.xls")
+happiness_2022 = read_excel("happiness_2022.xls")
+happiness_2023 = read_excel("happiness_2023.xls")
+```
+
+create a column for the year and add it to each data set
+```{r}
+happiness_2018$Year = 2018
+happiness_2019$Year = 2019
+happiness_2020$Year = 2020
+happiness_2021$Year = 2021
+happiness_2022$Year = 2022
+happiness_2023$Year = 2023
+```
+
+Rename any variations of the country columns to "Country"
+```{r}
+#change 2020 variable name for country
+colnames(happiness_2020)[colnames(happiness_2020) == "Country name"] = "Country"
+#change 2021 variable name for country
+colnames(happiness_2021)[colnames(happiness_2021) == "Country name"] = "Country"
+#change 2023 variable name for country
+colnames(happiness_2023)[colnames(happiness_2023) == "Country name"] = "Country"
+```
+
+Rename any variations of the happiness score column to "Happiness score"
+```{r}
+#change 2020 variable name for happiness score
+colnames(happiness_2020)[colnames(happiness_2020) == "Ladder score"] = "Happiness score"
+#change 2021 variable name for happiness score
+colnames(happiness_2021)[colnames(happiness_2021) == "Ladder score"] = "Happiness score"
+#change 2023 variable name for happiness score
+colnames(happiness_2023)[colnames(happiness_2023) == "Ladder score"] = "Happiness score"
+```
+
+Change 2022 data set to match 2021 and 2023
+```{r}
+#match 2018 column variable names to rest of the data sets
+colnames(happiness_2018)[colnames(happiness_2018) == "Whisker-high"] = "upperwhisker"
+colnames(happiness_2018)[colnames(happiness_2018) == "Whisker-low"] = "lowerwhisker"
+colnames(happiness_2018)[colnames(happiness_2018) == "Dystopia (1.92) + residual"] = "Dystopia + residual"
+
+#match 2019 column variable names to rest of the data sets
+colnames(happiness_2019)[colnames(happiness_2019) == "Whisker-high"] = "upperwhisker"
+colnames(happiness_2019)[colnames(happiness_2019) == "Whisker-low"] = "lowerwhisker"
+colnames(happiness_2019)[colnames(happiness_2019) == "Dystopia (1.88) + residual"] = "Dystopia + residual"
+
+#match 2020 column variable names to rest of data sets
+colnames(happiness_2020)[colnames(happiness_2020) == "Explained by: Log GDP per capita"] = "Explained by: GDP per capita"
+
+#match 2021 column variable names to rest of data sets
+colnames(happiness_2021)[colnames(happiness_2021) == "Explained by: Log GDP per capita"] = "Explained by: GDP per capita"
+
+#match 2022 column variable names to rest of the data sets
+colnames(happiness_2022)[colnames(happiness_2022) == "Whisker-high"] = "upperwhisker"
+colnames(happiness_2022)[colnames(happiness_2022) == "Whisker-low"] = "lowerwhisker"
+colnames(happiness_2022)[colnames(happiness_2022) == "Dystopia (1.83) + residual"] = "Dystopia + residual"
+
+#match 2023 column variable names to rest of data sets
+colnames(happiness_2023)[colnames(happiness_2023) == "Explained by: Log GDP per capita"] = "Explained by: GDP per capita"
+```
+
+Combine the year based data sets to one file called happiness
+```{r}
+happiness = bind_rows(happiness_2018, happiness_2019, happiness_2020, happiness_2021, happiness_2022, happiness_2023, .id = "dataset_id")
+
+head(happiness)
+```
+
+Remove any data columns with too much missing information or columns that are redundant. 
+For example, the "Social support" column values are scaled and better shown in "Explained by: Social support". 
+Each of the columns titled "Explain by:..." can be added together with the Dystopia column to obtain the "happiness score" column value
+```{r}
+happiness = select(happiness, -c("Regional indicator", "Standard error of ladder score", "Social support", "Healthy life expectancy", "Freedom to make life choices", "Generosity", "Perceptions of corruption", "Ladder score in Dystopia", "Logged GDP per capita", "RANK"))
+```
+
